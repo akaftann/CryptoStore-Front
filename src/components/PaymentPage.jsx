@@ -1,8 +1,8 @@
 import styles from "../style";
-import LoginForm from "./LoginForm";
+import PaymentForm  from "./PaymentForm";
 import Navbar from "./Navbar";
 
-const LoginPage = () => (
+const Payment = () => (
   <div className="bg-primary w-full overflow-hidden">
     <div className={`${styles.paddingX} ${styles.flexCenter}`}>
       <div className={`${styles.boxWidth}`}>
@@ -12,10 +12,12 @@ const LoginPage = () => (
 
     <div className={`bg-primary ${styles.flexStart}`}>
       <div className={`${styles.boxWidth}`}>
-        <LoginForm />
+        <PaymentForm />
       </div>
     </div>
+    
+    
   </div>
 );
 
-export default LoginPage;
+export default Payment;

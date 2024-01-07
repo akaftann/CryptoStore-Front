@@ -1,8 +1,8 @@
 import styles from "../style";
-import  Payment  from "./Payment";
+import RegisterForm from "./RegisterForm";
 import Navbar from "./Navbar";
 
-const PaymentDashboard = () => (
+const RegisterPage = () => (
   <div className="bg-primary w-full overflow-hidden">
     <div className={`${styles.paddingX} ${styles.flexCenter}`}>
       <div className={`${styles.boxWidth}`}>
@@ -12,12 +12,10 @@ const PaymentDashboard = () => (
 
     <div className={`bg-primary ${styles.flexStart}`}>
       <div className={`${styles.boxWidth}`}>
-        <Payment />
+        <RegisterForm />
       </div>
     </div>
-    
-    
   </div>
 );
 
-export default PaymentDashboard;
+export default RegisterPage;

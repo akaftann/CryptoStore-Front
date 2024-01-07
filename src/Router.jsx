@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from './App';
-import { LoginForm, RegisterForm, PaymentDashboard, LoginPage} from "./components";
+import { LoginForm, RegisterPage, PaymentPage, LoginPage} from "./components";
 
 
 const Router = () => {
@@ -8,8 +8,8 @@ const Router = () => {
     <Routes>
         <Route element={<App />} path="/"/>
         <Route path="/login" element={<LoginPage />}/>
-        <Route path="/register" element={<RegisterForm />}/>
-        <Route path="/payment" element={<PaymentDashboard />}/>
+        <Route path="/register" element={<RegisterPage />}/>
+        <Route path="/payment" element={<PaymentPage />}/>
         {/* <Route path="*" element={<div>Not found
             <Link to='/' style={{display:"block"}}>Back</Link>
         </div>}/>
