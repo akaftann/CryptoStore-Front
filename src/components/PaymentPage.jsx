@@ -1,12 +1,23 @@
 import styles from "../style";
 import PaymentForm  from "./PaymentForm";
 import Navbar from "./Navbar";
+import { Context } from "../main";
+import { useContext, useEffect } from "react";
+import {observer} from 'mobx-react-lite'
 
-const Payment = () => (
+const Payment = () => {
+  const {store} = useContext(Context)
+  useEffect(()=>{
+    if(localStorage.getItem('USDTtoken')){
+      console.log('saved token: ', localStorage.getItem('USDTtoken'))
+      store.checkAuth()
+    }
+  }, [])
+  return(
   <div className="bg-primary w-full overflow-hidden">
     <div className={`${styles.paddingX} ${styles.flexCenter}`}>
       <div className={`${styles.boxWidth}`}>
-        <Navbar />
+        <Navbar isAuth={store.isAuth} />
       </div>
     </div>
 
@@ -18,6 +29,6 @@ const Payment = () => (
     
     
   </div>
-);
+)};
 
-export default Payment;
+export default observer(Payment);

@@ -1,5 +1,8 @@
 import {makeAutoObservable} from 'mobx'
 import AuthService from '../services/AuthService.js'
+import axios from 'axios'
+import { BASE_URL } from '../http/index.js'
+import { redirect } from 'react-router-dom'
 
 export default class Store{
     user = {}
@@ -19,37 +22,57 @@ export default class Store{
     async signIn(email, pass){
         try{
             console.log('start sign in...')
-            const responce = await AuthService.signIn(email, pass)
-            console.log(responce)
-            localStorage.setItem('token', responce.data.accessToken)
-            this.setAuth(true)
-            this.setUser(responce.data.user)
+            const response = await AuthService.signIn(email, pass)
+            console.log(response)
+            if (response.status === 200) {
+                console.log('Successful login!');
+                localStorage.setItem('token', response.data.accessToken);
+                this.setAuth(true);
+                this.setUser(response.data.user);
+                console.log('before redirect')
+                return redirect('/home')
+                console.log('after redirect')
+              } else {
+                console.log('Unsuccessful login. Status:', response.status);
+              }
         }catch(e){
-            console.log('error...', e.responce?.data?.message)
+            console.log('error...', e.response?.data?.message)
         }
     }
 
     async signUp(email, pass){
         try{
-            const responce = await AuthService.signUp(email, pass)
-            console.log(responce)
-            localStorage.setItem('token', responce.data.accessToken)
+            const response = await AuthService.signUp(email, pass)
+            console.log(response)
+            localStorage.setItem('USDTtoken', response.data.accessToken)
             this.setAuth(true)
-            this.setUser(responce.data.user)
+            this.setUser(response.data.user)
         }catch(e){
-            console.log(e.responce?.data?.message)
+            console.log(e.response?.data?.message)
         }
     }
 
     async signOut(){
         try{
-            const responce = await AuthService.signOut()
-            localStorage.removeItem('token')
+            const response = await AuthService.signOut()
+            localStorage.removeItem('USDTtoken')
             this.setAuth(false)
             this.setUser({})
         }catch(e){
-            console.log(e.responce?.data?.message)
+            console.log(e.response?.data?.message)
         }
+    }
+
+    async checkAuth(){
+        try{
+            const response = await axios.get(`${BASE_URL}/refresh`, {withCredentials:true})
+            localStorage.setItem('USDTtoken', response.data.accessToken)
+            this.setAuth(true)
+            this.setUser(response.data.user)
+        }catch(e){
+            console.log(e.response?.data?.message)
+        }
+        
     }
 }
 
